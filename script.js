@@ -88,7 +88,12 @@ function generateToolboxCourseOpeningLink(courseId, supportedIdes) {
 // Initialize the form
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('courseForm');
-  const resultDiv = document.getElementById('result');
+  const modal = document.getElementById('modal');
+  const questionView = document.getElementById('questionView');
+  const helpView = document.getElementById('helpView');
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const modalOverlay = document.querySelector('.modal-overlay');
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -115,7 +120,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // Open the link immediately
     window.location.href = link;
 
-    // Display help message
-    resultDiv.classList.remove('hidden');
+    // Show modal after a delay
+    setTimeout(() => {
+      modal.classList.remove('hidden');
+    }, 1000);
+  });
+
+  // Yes button - close modal
+  yesBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    questionView.classList.remove('hidden');
+    helpView.classList.add('hidden');
+  });
+
+  // No button - show help message
+  noBtn.addEventListener('click', () => {
+    questionView.classList.add('hidden');
+    helpView.classList.remove('hidden');
+  });
+
+  // Close modal when clicking overlay
+  modalOverlay.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    questionView.classList.remove('hidden');
+    helpView.classList.add('hidden');
   });
 });

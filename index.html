@@ -43,13 +43,26 @@
             <button type="submit" class="btn-generate">Open in IDE</button>
         </form>
 
-        <div id="result" class="result hidden">
-            <p class="help-text">
-                Course didn't open? You may need to install or update Toolbox
-            </p>
-            <a href="https://www.jetbrains.com/toolbox-app/" target="_blank" class="toolbox-link">
-                Download JetBrains Toolbox
-            </a>
+    </div>
+
+    <div id="modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div id="questionView">
+                <h3>Did the course open?</h3>
+                <div class="modal-buttons">
+                    <button id="yesBtn" class="btn-modal">Yes</button>
+                    <button id="noBtn" class="btn-modal btn-modal-secondary">No</button>
+                </div>
+            </div>
+            <div id="helpView" class="hidden">
+                <p class="help-text">
+                    Download and install Toolbox and try again
+                </p>
+                <a href="https://www.jetbrains.com/toolbox-app/" target="_blank" class="toolbox-link">
+                    Download JetBrains Toolbox
+                </a>
+            </div>
         </div>
     </div>
 

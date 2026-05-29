@@ -118,25 +118,94 @@ select:focus {
     cursor: not-allowed;
 }
 
-.result {
-    margin-top: 32px;
-    padding-top: 32px;
-    border-top: 1px solid rgba(25, 25, 28, 0.1);
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }
 
-.result.hidden {
+.modal.hidden {
     display: none;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(25, 25, 28, 0.5);
+}
+
+.modal-content {
+    position: relative;
+    background: white;
+    border: 1px solid rgba(25, 25, 28, 0.1);
+    padding: 32px;
+    max-width: 400px;
+    width: 90%;
+    z-index: 1001;
+}
+
+.modal-content h3 {
+    color: #19191C;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn-modal {
+    padding: 8px 24px;
+    background: #6B57FF;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    cursor: pointer;
+    font-family: 'JetBrains Sans', Inter, system-ui, -apple-system, BlinkMacSystemFont,
+        'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Droid Sans', 'Helvetica Neue',
+        Arial, sans-serif;
+}
+
+.btn-modal:hover {
+    background: #8979FF;
+}
+
+.btn-modal-secondary {
+    background: white;
+    color: #19191C;
+    border: 1px solid rgba(25, 25, 28, 0.2);
+}
+
+.btn-modal-secondary:hover {
+    background: #F7F7F7;
 }
 
 .help-text {
     color: #19191C;
     font-size: 14px;
     line-height: 20px;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
+    text-align: center;
 }
 
 .toolbox-link {
-    display: inline-block;
+    display: block;
     padding: 8px 24px;
     background: #6B57FF;
     color: white;
@@ -145,6 +214,7 @@ select:focus {
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
+    text-align: center;
     font-family: 'JetBrains Sans', Inter, system-ui, -apple-system, BlinkMacSystemFont,
         'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Droid Sans', 'Helvetica Neue',
         Arial, sans-serif;
@@ -152,6 +222,10 @@ select:focus {
 
 .toolbox-link:hover {
     background: #8979FF;
+}
+
+.hidden {
+    display: none;
 }
 
 @media (max-width: 600px) {

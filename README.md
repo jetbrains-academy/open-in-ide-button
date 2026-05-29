@@ -33,7 +33,8 @@ Built with plain JavaScript and CSS, styled to match JetBrains rescui design sys
 3. Select the programming language (default: Python)
 4. Click "Open in IDE"
 5. The course will open in JetBrains Toolbox
-6. If the course doesn't open, follow the Toolbox download link shown on the page
+6. A popup will ask if the course opened successfully
+7. If you click "No", you'll see a link to download JetBrains Toolbox
 
 ## Files
 
