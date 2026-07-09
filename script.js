@@ -92,6 +92,7 @@ function generateToolboxCourseOpeningLink(courseId, supportedIdes, studyItemId =
 // Initialize the form
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('courseForm');
+  const copyLinkBtn = document.getElementById('copyLinkBtn');
   const toast = document.getElementById('toast');
   const toastLoading = document.getElementById('toastLoading');
   const toastQuestion = document.getElementById('toastQuestion');
@@ -100,28 +101,56 @@ document.addEventListener('DOMContentLoaded', () => {
   const toastNoBtn = document.getElementById('toastNoBtn');
   const toastClose = document.getElementById('toastClose');
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
+  // Helper function to generate link from form values
+  function generateLinkFromForm() {
     const marketplaceId = document.getElementById('marketplaceId').value;
     const programmingLanguage = document.getElementById('programmingLanguage').value;
     const studyItemId = document.getElementById('studyItemId').value.trim();
 
     if (!marketplaceId || !programmingLanguage) {
       alert('Please fill in all fields');
-      return;
+      return null;
     }
 
-    // Generate the link
     const courseNumericId = Number(marketplaceId);
     const supportedIdes = resolveSupportedIdes(programmingLanguage);
 
     if (supportedIdes.length === 0) {
       alert('No supported IDEs found for this language');
-      return;
+      return null;
     }
 
-    const link = generateToolboxCourseOpeningLink(courseNumericId, supportedIdes, studyItemId || null);
+    return generateToolboxCourseOpeningLink(courseNumericId, supportedIdes, studyItemId || null);
+  }
+
+  // Copy Link button handler
+  copyLinkBtn.addEventListener('click', async () => {
+    const link = generateLinkFromForm();
+    if (!link) return;
+
+    try {
+      await navigator.clipboard.writeText(link);
+
+      // Show success feedback
+      const originalText = copyLinkBtn.textContent;
+      copyLinkBtn.textContent = 'Copied!';
+      copyLinkBtn.disabled = true;
+
+      setTimeout(() => {
+        copyLinkBtn.textContent = originalText;
+        copyLinkBtn.disabled = false;
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy link:', err);
+      alert('Failed to copy link to clipboard');
+    }
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const link = generateLinkFromForm();
+    if (!link) return;
 
     // Open the link immediately
     window.location.href = link;
@@ -131,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toastLoading.classList.remove('hidden');
     toastQuestion.classList.add('hidden');
 
-    // After 6 seconds, show the question
+    // After 15 seconds, show the question
     setTimeout(() => {
       toastLoading.classList.add('hidden');
       toastQuestion.classList.remove('hidden');

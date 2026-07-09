@@ -102,8 +102,14 @@ select:focus {
     padding: 6px 6px;
 }
 
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
 .btn-generate {
-    width: 100%;
+    flex: 1;
     padding: 8px 24px;
     background: #6B57FF;
     color: white;
@@ -113,7 +119,6 @@ select:focus {
     font-weight: 400;
     line-height: 24px;
     cursor: pointer;
-    margin-top: 8px;
     font-family: 'JetBrains Sans', Inter, system-ui, -apple-system, BlinkMacSystemFont,
         'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Droid Sans', 'Helvetica Neue',
         Arial, sans-serif;
@@ -126,6 +131,24 @@ select:focus {
 .btn-generate:disabled {
     background: rgba(25, 25, 28, 0.1);
     color: rgba(25, 25, 28, 0.3);
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #19191C;
+    border: 1px solid rgba(25, 25, 28, 0.3);
+}
+
+.btn-secondary:hover {
+    background: rgba(25, 25, 28, 0.1);
+    border-color: rgba(25, 25, 28, 0.3);
+}
+
+.btn-secondary:disabled {
+    background: transparent;
+    color: rgba(25, 25, 28, 0.5);
+    border-color: rgba(25, 25, 28, 0.3);
     cursor: not-allowed;
 }
 
@@ -390,6 +413,11 @@ select:focus {
 
     h1 {
         font-size: 20px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 8px;
     }
 
     .link-container {
