@@ -81,11 +81,10 @@ function generateToolboxCourseOpeningLink(courseId, supportedIdes, studyItemId =
   url.searchParams.append('source', 'marketplace');
   url.searchParams.append('tools', supportedIdes.join(','));
   url.searchParams.append('minToolVersion', '251');
-  url.searchParams.append('minPluginVersion', '2025.7');
+  url.searchParams.append('minPluginVersion', '2026.6');
 
   if (studyItemId) {
     url.searchParams.append('study_item_id', studyItemId);
-    url.searchParams.append('lti_launch_id', `marketplace-${courseId}-${studyItemId}`);
   }
   return url.toString();
 }
