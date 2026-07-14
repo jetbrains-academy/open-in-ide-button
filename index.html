@@ -8,55 +8,98 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Open Toolbox Course Link</h1>
+    <div class="main-layout">
+        <!-- Left column: Settings -->
+        <div class="settings-panel">
+            <h1>Link Settings</h1>
 
-        <form id="courseForm">
-            <div class="form-group">
-                <label for="marketplaceId">Marketplace ID:</label>
-                <input
-                    type="number"
-                    id="marketplaceId"
-                    name="marketplaceId"
-                    placeholder="Enter course marketplace ID"
-                    value="16630"
-                    required
-                >
-            </div>
+            <form id="courseForm">
+                <div class="form-group">
+                    <label for="marketplaceId">Marketplace ID:</label>
+                    <input
+                        type="number"
+                        id="marketplaceId"
+                        name="marketplaceId"
+                        placeholder="Enter course marketplace ID"
+                        value="16630"
+                        required
+                    >
+                </div>
 
-            <div class="form-group">
-                <label for="programmingLanguage">Programming Language:</label>
-                <select id="programmingLanguage" name="programmingLanguage" required>
-                    <option value="Python" selected>Python</option>
-                    <option value="Kotlin">Kotlin</option>
-                    <option value="JavaScript">JavaScript</option>
-                    <option value="Java">Java</option>
-                    <option value="Go">Go</option>
-                    <option value="Scala">Scala</option>
-                    <option value="Objective-C">Objective-C</option>
-                    <option value="Rust">Rust</option>
-                    <option value="C++">C++</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="programmingLanguage">Programming Language:</label>
+                    <select id="programmingLanguage" name="programmingLanguage" required>
+                        <option value="Python" selected>Python</option>
+                        <option value="Kotlin">Kotlin</option>
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="Java">Java</option>
+                        <option value="Go">Go</option>
+                        <option value="Scala">Scala</option>
+                        <option value="Objective-C">Objective-C</option>
+                        <option value="Rust">Rust</option>
+                        <option value="C++">C++</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="studyItemId">Task ID (optional):</label>
-                <input
-                    type="text"
-                    id="studyItemId"
-                    name="studyItemId"
-                    placeholder="Task ID from course structure API"
-                >
-                <small class="input-hint">Leave empty to open the course from the beginning. Use task ID from /api/plugin/course-structure</small>
-            </div>
+                <div class="form-group">
+                    <label for="studyItemId">Task ID (optional):</label>
+                    <input
+                        type="text"
+                        id="studyItemId"
+                        name="studyItemId"
+                        placeholder="Task ID"
+                    >
+                    <small class="input-hint">Leave empty to open the course from the beginning</small>
+                </div>
 
-            <div class="button-group">
-                <button type="submit" class="btn-generate">Open in IDE</button>
                 <button type="button" id="copyLinkBtn" class="btn-generate btn-secondary">Copy Link</button>
-            </div>
-        </form>
+            </form>
+        </div>
 
+        <!-- Right column: Preview -->
+        <div class="preview-panel">
+            <h1>Website Preview</h1>
+
+            <div class="mock-website">
+                <div class="mock-header">
+                    <div class="mock-logo"></div>
+                    <div class="mock-nav">
+                        <span class="nav-item"></span>
+                        <span class="nav-item"></span>
+                        <span class="nav-item"></span>
+                    </div>
+                </div>
+
+                <div class="mock-content">
+                    <div class="course-hero">
+                        <div class="hero-badge">Featured Course</div>
+                        <h2 class="hero-title">Introduction to Python Programming</h2>
+                        <p class="hero-description">
+                            Master Python from the ground up with hands-on coding exercises. Build real projects while learning fundamentals, data structures, and best practices.
+                        </p>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">12</div>
+                                <div class="stat-label">Lessons</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">45</div>
+                                <div class="stat-label">Exercises</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">8h</div>
+                                <div class="stat-label">Duration</div>
+                            </div>
+                        </div>
+                        <button type="submit" form="courseForm" class="btn-open-course">Code in JetBrains IDE</button>
+                        <p class="toolbox-hint">
+                            To start coding, install <a href="https://www.jetbrains.com/toolbox-app/" target="_blank" class="toolbox-link-text">JetBrains Toolbox</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Toast notification for progressive disclosure -->

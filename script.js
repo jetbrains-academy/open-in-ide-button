@@ -93,6 +93,8 @@ function generateToolboxCourseOpeningLink(courseId, supportedIdes, studyItemId =
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('courseForm');
   const copyLinkBtn = document.getElementById('copyLinkBtn');
+  const marketplaceIdInput = document.getElementById('marketplaceId');
+  const programmingLanguageSelect = document.getElementById('programmingLanguage');
   const toast = document.getElementById('toast');
   const toastLoading = document.getElementById('toastLoading');
   const toastQuestion = document.getElementById('toastQuestion');
@@ -100,6 +102,94 @@ document.addEventListener('DOMContentLoaded', () => {
   const toastYesBtn = document.getElementById('toastYesBtn');
   const toastNoBtn = document.getElementById('toastNoBtn');
   const toastClose = document.getElementById('toastClose');
+
+  // Fetch course data from JetBrains API
+  async function fetchCourseData(marketplaceId) {
+    console.log('Fetching course data for ID:', marketplaceId);
+    try {
+      // Use CORS proxy to avoid CORS issues
+      const apiUrl = `https://plugins.jetbrains.com/api/plugins/${marketplaceId}`;
+      const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(apiUrl)}`;
+
+      const response = await fetch(proxyUrl);
+      console.log('Response status:', response.status);
+      if (!response.ok) {
+        console.error('Failed to fetch course data, status:', response.status);
+        return null;
+      }
+      const data = await response.json();
+      console.log('Course data received:', data);
+      return data;
+    } catch (error) {
+      console.error('Error fetching course data:', error);
+      return null;
+    }
+  }
+
+  // Update preview with course data
+  function updatePreview(courseData) {
+    console.log('Updating preview with data:', courseData);
+    if (!courseData) {
+      console.log('No course data to update');
+      return;
+    }
+
+    const heroTitle = document.querySelector('.hero-title');
+    const heroDescription = document.querySelector('.hero-description');
+
+    console.log('Hero elements found:', { heroTitle, heroDescription });
+
+    if (heroTitle && courseData.name) {
+      console.log('Updating title to:', courseData.name);
+      heroTitle.textContent = courseData.name;
+    }
+
+    if (heroDescription && courseData.description) {
+      // Strip HTML tags from description
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = courseData.description;
+      const plainText = tempDiv.textContent || tempDiv.innerText || '';
+      const truncatedText = plainText.slice(0, 200) + (plainText.length > 200 ? '...' : '');
+      console.log('Updating description to:', truncatedText);
+      heroDescription.textContent = truncatedText;
+    }
+
+    if (courseData.programmingLanguage) {
+      console.log('Programming language:', courseData.programmingLanguage);
+      // Try to match the programming language with select options
+      const options = Array.from(programmingLanguageSelect.options);
+      const matchingOption = options.find(opt =>
+        opt.value.toLowerCase() === courseData.programmingLanguage.toLowerCase()
+      );
+      if (matchingOption) {
+        console.log('Setting language to:', matchingOption.value);
+        programmingLanguageSelect.value = matchingOption.value;
+      } else {
+        console.log('No matching language option found');
+      }
+    }
+  }
+
+  // Load course data when marketplace ID changes
+  let debounceTimer;
+  marketplaceIdInput.addEventListener('input', () => {
+    console.log('Marketplace ID input changed');
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(async () => {
+      const marketplaceId = marketplaceIdInput.value.trim();
+      console.log('Debounced input, ID:', marketplaceId);
+      if (marketplaceId) {
+        const courseData = await fetchCourseData(marketplaceId);
+        updatePreview(courseData);
+      }
+    }, 500);
+  });
+
+  // Load initial course data
+  console.log('Initial marketplace ID:', marketplaceIdInput.value);
+  if (marketplaceIdInput.value) {
+    fetchCourseData(marketplaceIdInput.value).then(updatePreview);
+  }
 
   // Helper function to generate link from form values
   function generateLinkFromForm() {
